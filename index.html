@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maria Kopsacheili</title>
+<meta name="description" content="Maria Kopsacheili, astrophysicist working on supernova remnants in nearby galaxies.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,100&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Layout: two grounds. Top = nebula photo hero with portrait, amber accent and the emission-line spectrum.
+   Below = a quieter slate-blue ground with a faint star dusting, sticky tabs, single reading column. Deliberately dark-only. */
+:root{
+  --space:#0b0b0d;          /* hero ground */
+  --ground:#151513;         /* lower, quieter ground */
+  --surface:#211f1b;        /* placeholders */
+  --fg:#f4efe6;             /* light text */
+  --muted:#b5ae9f;
+  --line:#2f2c26;
+  --accent:#f3b23e;         /* amber: the dominant colour */
+  --ha:#ff7a83; --oiii:#5fd8c4; --sii:#c39dff;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Nunito Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.65}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ground)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--display);font-variation-settings:"SOFT" 100;text-wrap:balance;line-height:1.15;margin:0;font-weight:600}
+h2{font-size:1.9rem}
+h3{font-size:1.15rem}
+p{margin:0;max-width:65ch}
+.label{font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+
+/* Hero */
+header.hero{position:relative;background:var(--space);overflow:hidden;isolation:isolate}
+#nebula{position:absolute;inset:0;width:100%;height:100%;z-index:-2;display:block;object-fit:cover;object-position:50% 45%;max-width:none}
+header.hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,rgba(11,11,13,.82) 0%,rgba(11,11,13,.45) 50%,rgba(11,11,13,.05) 85%),
+             linear-gradient(180deg,rgba(11,11,13,.1) 0%,rgba(11,11,13,0) 55%,var(--ground) 100%)}
+.hero .wrap{padding-block:64px 26px}
+.hero-grid{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.portrait{width:136px;height:136px;border-radius:50%;background:rgba(26,33,51,.7);border:3px solid var(--accent);display:grid;place-items:center;overflow:hidden;font-family:var(--display);font-size:2.3rem;color:var(--muted)}
+.portrait img{width:100%;height:100%;object-fit:cover}
+.hero .eyebrow{color:var(--accent)}
+.hero h1,.hero .role{text-shadow:0 1px 18px rgba(0,0,0,.6)}
+.hero h1{font-size:clamp(2.4rem,6.5vw,3.8rem);font-weight:600;letter-spacing:-.005em;margin-top:4px}
+.hero .role{margin-top:10px;color:#d6d3e2;font-size:1.08rem;max-width:44ch}
+.spectrum{margin-top:40px}
+.spectrum svg{width:100%;height:auto;display:block}
+@media (max-width:560px){
+  .hero-grid{grid-template-columns:1fr}
+  .portrait{width:108px;height:108px}
+  header.hero::after{background:linear-gradient(180deg,rgba(11,11,13,.35) 0%,rgba(11,11,13,.8) 60%,var(--ground) 100%)}
+}
+
+/* Lower ground: faint star dusting */
+.lower{position:relative;isolation:isolate;background:var(--ground)}
+#stars{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:block}
+
+/* Tabs */
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);border-bottom:1px solid var(--line)}
+.tablist{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tablist::-webkit-scrollbar{display:none}
+.tab{appearance:none;border:0;background:none;color:var(--muted);font-family:var(--body);font-size:1rem;font-weight:600;padding:15px 12px 12px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent}
+.tab:hover{color:var(--fg)}
+.tab[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+
+main{padding-block:40px 72px}
+section.panel{display:grid;gap:22px}
+.lead{font-size:1.18rem}
+
+/* Research */
+.topics{display:grid}
+.topic{display:grid;grid-template-columns:120px 1fr;gap:18px;padding-block:20px;border-top:1px solid var(--line)}
+.topic .tag{font-size:.8rem;color:var(--muted);padding-top:4px}
+.topic .tag b{display:block;font-weight:700;font-size:.95rem;color:var(--accent)}
+.topic > div{min-width:0;display:grid;gap:6px}
+@media (max-width:560px){.topic{grid-template-columns:1fr;gap:6px}}
+
+/* Publications */
+.pubgroup{display:grid}
+.pub{display:grid;grid-template-columns:52px 1fr;gap:14px;padding-block:14px;border-top:1px solid var(--line)}
+.pub .yr{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.92rem;font-weight:600;padding-top:2px}
+.pub > div{min-width:0}
+.pub .t{font-weight:700}
+.pub .a{color:var(--muted);font-size:.95rem}
+.pub .a b{color:var(--fg);font-weight:700}
+.pub .j{font-size:.86rem;margin-top:3px;color:var(--muted)}
+.btn{display:inline-block;font-weight:700;text-decoration:none;background:var(--accent);color:var(--space);padding:9px 18px;border-radius:999px;width:fit-content}
+.btn:hover{background:var(--fg)}
+.note{font-size:.95rem;color:var(--muted);border-left:3px solid var(--accent);padding:4px 0 4px 14px}
+
+/* CV */
+.cv{display:block}
+.cvblock{display:grid}
+.row{display:grid;grid-template-columns:150px 1fr;gap:18px;padding-block:12px;border-top:1px solid var(--line)}
+.row .when{font-size:.88rem;color:var(--muted);font-weight:600;font-variant-numeric:tabular-nums;padding-top:3px}
+.row > div{min-width:0}
+.row .what{font-weight:700}
+.row .where{color:var(--muted);font-size:.95rem}
+.cvblock .label{margin-bottom:6px}
+.cvblock .more{font-size:.9rem;color:var(--muted);padding-top:10px;border-top:1px solid var(--line)}
+.row .where i{font-style:italic}
+.inv.coi{background:none;color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.inv{display:inline-block;vertical-align:2px;margin-left:6px;font:700 .68rem var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--space);background:var(--accent);padding:2px 7px;border-radius:4px}
+@media (max-width:560px){.row{grid-template-columns:1fr;gap:2px}}
+
+
+/* Collapsible sections */
+.panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.toggle-all{appearance:none;background:none;border:1px solid var(--line);color:var(--muted);font:600 .85rem var(--body);padding:6px 14px;border-radius:999px;cursor:pointer}
+.toggle-all:hover{border-color:var(--accent);color:var(--accent)}
+details.sec{border-top:1px solid var(--line)}
+details.sec:last-of-type{border-bottom:1px solid var(--line)}
+details.sec > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:18px 2px;color:var(--accent);
+  font-family:var(--display);font-variation-settings:"SOFT" 100;font-size:1.3rem;font-weight:600;line-height:1.2}
+details.sec > summary::-webkit-details-marker{display:none}
+details.sec > summary::after{content:"";margin-left:auto;flex:none;width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-3px) rotate(45deg);transition:transform .25s ease;opacity:.85}
+details.sec[open] > summary::after{transform:translateY(2px) rotate(225deg)}
+details.sec > summary:hover .sec-t{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
+details.sec > summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.count{font:700 .75rem var(--body);color:var(--accent);background:rgba(243,178,62,.13);border:1px solid rgba(243,178,62,.35);padding:2px 9px;border-radius:999px;letter-spacing:.02em}
+.sec-body{padding-bottom:18px}
+@media (prefers-reduced-motion:no-preference){details.sec[open] .sec-body{animation:in .3s ease both}}
+@media (prefers-reduced-motion:reduce){details.sec > summary::after{transition:none}}
+
+/* Astrophotography: masonry columns so portrait and landscape shots keep their shape */
+.gallery{columns:3 240px;column-gap:16px}
+.gallery figure{margin:0 0 18px;break-inside:avoid;display:grid;gap:8px}
+.shot{all:unset;cursor:zoom-in;display:block;border-radius:10px;overflow:hidden;line-height:0}
+.shot:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.shot img{width:100%;height:auto;display:block;transition:transform .4s ease}
+.shot:hover img{transform:scale(1.03)}
+figcaption{font-size:.88rem;color:var(--muted);line-height:1.45}
+figcaption b{color:var(--fg)}
+figcaption .loc{display:block;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-top:2px}
+.lightbox[hidden],section.panel[hidden]{display:none}
+.lightbox{position:fixed;inset:0;z-index:20;background:rgba(5,5,7,.94);display:grid;grid-template-rows:1fr auto;gap:12px;
+  padding:calc(16px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lightbox img{max-width:100%;max-height:100%;object-fit:contain;place-self:center;border-radius:6px}
+.lb-bar{display:flex;align-items:center;gap:12px;justify-content:space-between;max-width:900px;width:100%;margin:0 auto}
+.lb-bar p{color:var(--fg);font-size:.95rem;min-width:0}
+.lb-bar p b{color:var(--accent)}
+.lb-btns{display:flex;gap:8px;flex:none}
+.lb-btns button{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--fg);width:42px;height:42px;border-radius:50%;font-size:1.1rem;cursor:pointer}
+.lb-btns button:hover{border-color:var(--accent);color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.shot img{transition:none}}
+
+footer{border-top:1px solid var(--line);padding-block:24px;color:var(--muted);font-size:.85rem}
+@media (prefers-reduced-motion:no-preference){.panel{animation:in .35s ease both}@keyframes in{from{transform:translateY(6px)}to{transform:none}}}
+</style>
+
+<header class="hero">
+  <img id="nebula" alt="" aria-hidden="true" src="img/photo-01.jpg">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="portrait"><img alt="Maria Kopsacheili" src="img/photo-02.jpg"></div>
+      <div>
+        <p class="label eyebrow">Astrophysicist</p>
+        <h1>Maria Kopsacheili</h1>
+        <p class="role">I find and study supernova remnants in nearby galaxies.</p>
+      </div>
+    </div>
+    <div class="spectrum" aria-hidden="true">
+      <svg viewBox="0 0 800 74">
+        <line x1="0" y1="54" x2="800" y2="54" stroke="rgba(236,232,242,.25)" stroke-width="1"/>
+        <path d="M0 54 L170 54 L176 52 L180 20 L184 52 L190 54 L196 54 L200 34 L204 54 L560 54 L566 51 L570 8 L574 51 L582 54 L592 54 L596 42 L600 54 L604 54 L656 54 L660 32 L664 54 L670 54 L674 36 L678 54 L800 54" fill="none" stroke="var(--fg)" stroke-width="1.4" stroke-linejoin="round" opacity=".85"/>
+        <circle cx="180" cy="20" r="3.2" fill="var(--oiii)"/><circle cx="570" cy="8" r="3.2" fill="var(--ha)"/>
+        <circle cx="660" cy="32" r="3.2" fill="var(--sii)"/><circle cx="674" cy="36" r="3.2" fill="var(--sii)"/>
+        <g font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11" fill="var(--muted)">
+          <text x="180" y="71" text-anchor="middle">[O III] 5007</text>
+          <text x="570" y="71" text-anchor="middle">Hα 6563</text>
+          <text x="667" y="71" text-anchor="middle">[S II] 6716/31</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<div class="lower">
+<canvas id="stars" aria-hidden="true"></canvas>
+<nav class="tabs" aria-label="Sections">
+  <div class="wrap tablist" role="tablist">
+    <button class="tab" role="tab" id="t-about" data-v="about">About</button>
+    <button class="tab" role="tab" id="t-research" data-v="research">Research</button>
+    <button class="tab" role="tab" id="t-publications" data-v="publications">Publications</button>
+    <button class="tab" role="tab" id="t-cv" data-v="cv">CV</button>
+    <button class="tab" role="tab" id="t-astrophotography" data-v="astrophotography">Night Sky</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section class="panel" id="about" role="tabpanel" aria-labelledby="t-about">
+  <h2>About me</h2>
+  <p class="lead">I am an observational astrophysicist working on supernova remnants (SNRs): the expanding shells of gas left behind when stars explode.</p>
+  <p>SNRs return heavy elements and energy to the interstellar medium, heat and shape it, and can trigger new star formation. Studying whole populations of them in other galaxies lets us see how this feedback depends on the environment. My work combines optical imaging and integral-field spectroscopy with X-ray data and models of shock emission.</p>
+  <p>I did my PhD at the University of Crete, and from 2022 to 2026 I was a postdoctoral fellow at the Institute of Space Sciences (ICE‑CSIC) in Barcelona, with María de Maeztu and Juan de la Cierva fellowships. Along the way I have observed at La Silla, Cerro Tololo, Skinakas and Helmos, and spent research stays in Granada, Palermo and at the Center for Astrophysics | Harvard &amp; Smithsonian.</p>
+  <p class="note">Contact: mkopsacheili.astro [at] gmail.com · kopsacheili [at] ice.csic.es</p>
+</section>
+
+<section class="panel" id="research" role="tabpanel" aria-labelledby="t-research" hidden>
+  <h2>Research</h2>
+  <p>My main question: how do supernova remnants evolve, and how do they shape the galaxies they live in? To answer it, we first need large, complete and unbiased samples, so much of my work is about finding them.</p>
+  <div class="topics">
+    <div class="topic"><div class="tag"><b>Diagnostics</b>identification</div><div>
+      <h3>New tools to find supernova remnants</h3>
+      <p>The classic test, [S II]/Hα &gt; 0.4, misses many remnants, especially young or fast-shock ones. I develop multi-line diagnostics based on shock and photoionization models, and machine-learning classifiers for emission-line nebulae, that separate SNRs from H II regions and other nebulae more completely.</p></div></div>
+    <div class="topic"><div class="tag"><b>Populations</b>nearby galaxies</div><div>
+      <h3>Extragalactic SNR populations</h3>
+      <p>With integral-field spectroscopy (MUSE/VLT, WEAVE/WHT) and narrow-band imaging, I build large SNR samples and measure their densities, shock velocities and luminosity functions. In NGC 7793 this raised the number of known SNRs to about 240; current targets include the starburst galaxy IC 342.</p></div></div>
+    <div class="topic"><div class="tag"><b>Multi‑λ</b>optical + X‑ray</div><div>
+      <h3>X-ray counterparts</h3>
+      <p>Combining Chandra and XMM‑Newton archives with optical catalogues to find X-ray SNRs beyond the Local Group, and relating their X-ray emission to the density of their surroundings.</p></div></div>
+    <div class="topic"><div class="tag"><b>Models</b>theory &amp; HPC</div><div>
+      <h3>Luminosity functions and simulations</h3>
+      <p>Models of optical emission-line luminosity functions for SNR populations, and hydrodynamic simulations of shocks interacting with dense clouds, such as in Calvera's high-latitude remnant.</p></div></div>
+    <div class="topic"><div class="tag"><b>Transients</b>spectroscopy</div><div>
+      <h3>Novae and supernovae</h3>
+      <p>A quantitative method to follow the spectral-class evolution of classical novae, the peculiar 1991bg-like Type Ia SN 2023vjh, and supernova follow-up within the ePESSTO collaboration.</p></div></div>
+  </div>
+</section>
+
+<section class="panel" id="publications" role="tabpanel" aria-labelledby="t-publications" hidden>
+  <h2>Publications</h2>
+  <p>18 refereed papers, 7 as first author. The complete, always up-to-date list is on NASA ADS.</p>
+  <a class="btn" href="https://ui.adsabs.harvard.edu/search/q=orcid%3A0000-0002-3563-819X&sort=date%20desc" target="_blank" rel="noopener">Full list on NASA ADS →</a>
+
+  <div class="pubgroup">
+    <p class="label" style="margin:14px 0 6px">First author</p>
+    <div class="pub"><div class="yr">2026</div><div>
+      <div class="t">A quantitative method to investigate the spectral class time evolution of novae</div>
+      <div class="a"><b>Kopsacheili M.</b>, Guerrero M. A., Vázquez-Torres D. A.</div>
+      <div class="j">ApJ, accepted · <a href="https://doi.org/10.3847/1538-4357/aeb0a0" target="_blank" rel="noopener">doi</a></div></div></div>
+    <div class="pub"><div class="yr">2026</div><div>
+      <div class="t">The type Ia supernova 2023vjh: a peculiar 1991bg-like SN with unusually faint light curves</div>
+      <div class="a"><b>Kopsacheili M.</b>, Galbany L., Folatelli G., Phillips M. M., Burns C. R., et al.</div>
+      <div class="j">A&amp;A 713, A202</div></div></div>
+    <div class="pub"><div class="yr">2025</div><div>
+      <div class="t">New X-ray supernova remnants in NGC 7793</div>
+      <div class="a"><b>Kopsacheili M.</b>, Anastasopoulou K., Rea N., Gutiérrez C. P., Galbany L.</div>
+      <div class="j">A&amp;A 701, A60 · <a href="https://arxiv.org/abs/2506.09120" target="_blank" rel="noopener">arXiv</a></div></div></div>
+    <div class="pub"><div class="yr">2024</div><div>
+      <div class="t">Supernova remnant properties and luminosity functions in NGC 7793 using MUSE IFS</div>
+      <div class="a"><b>Kopsacheili M.</b>, Jiménez-Palau C., Galbany L., Boumis P., González-Díaz R.</div>
+      <div class="j">MNRAS 530, 1078 · <a href="https://doi.org/10.1093/mnras/stae874" target="_blank" rel="noopener">doi</a></div></div></div>
+    <div class="pub"><div class="yr">2022</div><div>
+      <div class="t">Optical emission-line luminosity function models for populations of supernova remnants</div>
+      <div class="a"><b>Kopsacheili M.</b>, Zezas A., Leonidaki I.</div>
+      <div class="j">MNRAS 514, 3260 · <a href="https://doi.org/10.1093/mnras/stac1415" target="_blank" rel="noopener">doi</a></div></div></div>
+    <div class="pub"><div class="yr">2021</div><div>
+      <div class="t">The supernova remnant populations of the galaxies NGC 45, NGC 55, NGC 1313 and NGC 7793: luminosity and excitation functions</div>
+      <div class="a"><b>Kopsacheili M.</b>, Zezas A., Leonidaki I., Boumis P.</div>
+      <div class="j">MNRAS 507, 6020 · <a href="https://doi.org/10.1093/mnras/stab2395" target="_blank" rel="noopener">doi</a></div></div></div>
+    <div class="pub"><div class="yr">2020</div><div>
+      <div class="t">A diagnostic tool for the identification of supernova remnants</div>
+      <div class="a"><b>Kopsacheili M.</b>, Zezas A., Leonidaki I.</div>
+      <div class="j">MNRAS 491, 889 · <a href="https://doi.org/10.1093/mnras/stz2594" target="_blank" rel="noopener">doi</a></div></div></div>
+  </div>
+
+  <div class="pubgroup">
+    <p class="label" style="margin:14px 0 6px">Co-author</p>
+    <div class="pub"><div class="yr">2026</div><div>
+      <div class="t">A systematic meta-analysis of physical parameters of Galactic supernova remnants</div>
+      <div class="a">Chousein-Basia I., Zezas A., Leonidaki I., <b>Kopsacheili M.</b></div>
+      <div class="j">MNRAS 545, staf1819 · <a href="https://arxiv.org/abs/2510.05202" target="_blank" rel="noopener">arXiv</a></div></div></div>
+    <div class="pub"><div class="yr">2025</div><div>
+      <div class="t">Observational diversity of bright long-lived Type II supernovae</div>
+      <div class="a">Nagao T., Reynolds T. M., Kuncarayakti H., et al. (incl. <b>Kopsacheili M.</b>)</div>
+      <div class="j">A&amp;A 699, A283</div></div></div>
+    <div class="pub"><div class="yr">2025</div><div>
+      <div class="t">Rapid follow-up of infant supernovae with the Gran Telescopio Canarias</div>
+      <div class="a">Galbany L., Gutiérrez C. P., Piscarreta L., et al. (incl. <b>Kopsacheili M.</b>)</div>
+      <div class="j">JCAP 2025, 053</div></div></div>
+    <div class="pub"><div class="yr">2025</div><div>
+      <div class="t">Eruptive mass-loss less than a year before the explosion of superluminous supernovae: I. SN 2020xga and SN 2022xgc</div>
+      <div class="a">Gkini A., Fransson C., Lunnan R., et al. (incl. <b>Kopsacheili M.</b>)</div>
+      <div class="j">A&amp;A 694, A292</div></div></div>
+    <div class="pub"><div class="yr">2024</div><div>
+      <div class="t">The fast rise of the unusual Type IIL/IIb SN 2018ivc</div>
+      <div class="a">Reguitti A., Dastidar R., Pignata G., et al. (incl. <b>Kopsacheili M.</b>)</div>
+      <div class="j">A&amp;A 692, A26</div></div></div>
+    <div class="pub"><div class="yr">2024</div><div>
+      <div class="t">BETIS: Bidimensional Exploration of the warm-Temperature Ionised gaS. I. Sample presentation and first results</div>
+      <div class="a">González-Díaz R., Rosales-Ortega F. F., Galbany L., Anderson J. P., Jiménez-Palau C., <b>Kopsacheili M.</b>, et al.</div>
+      <div class="j">A&amp;A 687, 20</div></div></div>
+    <div class="pub"><div class="yr">2023</div><div>
+      <div class="t">AT 2022aedm and a new class of luminous, fast-cooling transients in elliptical galaxies</div>
+      <div class="a">Nicholl M., Srivastav S., Fulton M. D., et al. (incl. <b>Kopsacheili M.</b>)</div>
+      <div class="j">ApJL 954, L28</div></div></div>
+    <div class="pub"><div class="yr">2022</div><div>
+      <div class="t">First optical identification of the SRG/eROSITA-detected supernova remnant G 116.6−26.1. I. Preliminary results</div>
+      <div class="a">Palaiologou E. V., Leonidaki I., <b>Kopsacheili M.</b></div>
+      <div class="j">MNRAS 515, 339 · <a href="https://doi.org/10.1093/mnras/stac1599" target="_blank" rel="noopener">doi</a></div></div></div>
+    <div class="pub"><div class="yr">2022</div><div>
+      <div class="t">Deep optical study of the mixed-morphology supernova remnant G 132.7+1.3 (HB3)</div>
+      <div class="a">Boumis P., Chiotellis A., Fragkou V., Akras S., Derlopa S., <b>Kopsacheili M.</b>, et al.</div>
+      <div class="j">MNRAS 512, 1658 · <a href="https://doi.org/10.1093/mnras/stac412" target="_blank" rel="noopener">doi</a></div></div></div>
+    <div class="pub"><div class="yr">2020</div><div>
+      <div class="t">Two new nova shells associated with V4362 Sagittarii and DO Aquilae</div>
+      <div class="a">Harvey E. J., Redman M. P., Boumis P., et al. (incl. <b>Kopsacheili M.</b>)</div>
+      <div class="j">MNRAS 499, 2959</div></div></div>
+    <div class="pub"><div class="yr">2018</div><div>
+      <div class="t">Massive star population of the Virgo Cluster galaxy NGC 4535: new massive variable candidates with the Hubble Space Telescope</div>
+      <div class="a">Spetsieri Z. T., Bonanos A. Z., Kourniotis M., et al. (incl. <b>Kopsacheili M.</b>)</div>
+      <div class="j">A&amp;A 618, A185</div></div></div>
+  </div>
+
+  <div class="pubgroup">
+    <p class="label" style="margin:14px 0 6px">Submitted</p>
+    <div class="pub"><div class="yr">2026</div><div>
+      <div class="t">Optical spectroscopic evidence of a dense target for hadronic γ-rays in Calvera's high-latitude supernova remnant</div>
+      <div class="a">Bocchino F., Orlando S., Greco E., Miceli M., Lauriano M., Petruk O., Rigoselli M., Mereghetti S., <b>Kopsacheili M.</b></div>
+      <div class="j">Submitted to A&amp;A</div></div></div>
+  </div>
+
+  <div class="pubgroup">
+    <p class="label" style="margin:14px 0 6px">Non-refereed</p>
+    <div class="pub"><div class="yr">2026</div><div>
+      <div class="t">Spectral evolution of the very fast Nova Sagittae 2026</div>
+      <div class="a"><b>Kopsacheili M.</b>, Guerrero M. A., Vázquez-Torres D. A.</div>
+      <div class="j">RNAAS 10, 305</div></div></div>
+  </div>
+</section>
+
+<section class="panel" id="cv" role="tabpanel" aria-labelledby="t-cv" hidden>
+  <div class="panel-head"><h2>Curriculum Vitae</h2><button type="button" class="toggle-all" aria-pressed="false">Open all</button></div>
+  <div class="cv">
+    <details class="sec cvblock">
+      <summary><span class="sec-t">Research positions</span><span class="count">2</span></summary>
+      <div class="sec-body">
+      <div class="row"><div class="when">Jan 2024 – Dec 2025</div><div>
+        <div class="what">Juan de la Cierva postdoctoral fellow</div>
+        <div class="where">Institute of Space Sciences (ICE‑CSIC), Barcelona, Spain</div></div></div>
+      <div class="row"><div class="when">Sep 2022 – Dec 2023<br>Jan 2026 – Sep 2026</div><div>
+        <div class="what">María de Maeztu postdoctoral fellow</div>
+        <div class="where">Institute of Space Sciences (ICE‑CSIC), Barcelona, Spain</div></div></div>
+      </div>
+    </details>
+
+    <details class="sec cvblock">
+      <summary><span class="sec-t">Research visits</span><span class="count">4</span></summary>
+      <div class="sec-body">
+      <div class="row"><div class="when">May 2026</div><div>
+        <div class="what">Visiting researcher, SNR simulations</div>
+        <div class="where">INAF – Osservatorio Astronomico di Palermo, Italy</div></div></div>
+      <div class="row"><div class="when">Mar – Apr 2026</div><div>
+        <div class="what">Visiting researcher (Severo Ochoa grant)</div>
+        <div class="where">Instituto de Astrofísica de Andalucía (IAA‑CSIC), Granada, Spain</div></div></div>
+      <div class="row"><div class="when">Nov 2019</div><div>
+        <div class="what">Visiting student</div>
+        <div class="where">Center for Astrophysics | Harvard &amp; Smithsonian, Cambridge MA, USA</div></div></div>
+      <div class="row"><div class="when">Summer 2014</div><div>
+        <div class="what">Internship</div>
+        <div class="where">National Observatory of Athens, Greece</div></div></div>
+      </div>
+    </details>
+
+    <details class="sec cvblock">
+      <summary><span class="sec-t">Education</span><span class="count">3</span></summary>
+      <div class="sec-body">
+      <div class="row"><div class="when">2016 – 2022</div><div>
+        <div class="what">PhD in Astrophysics</div>
+        <div class="where">University of Crete, Greece · Advisor: Prof. Andreas Zezas · <i>Study of populations of Galactic and extragalactic supernova remnants</i></div></div></div>
+      <div class="row"><div class="when">2016</div><div>
+        <div class="what">MSc in Astronomy, Astrophysics and Mechanics</div>
+        <div class="where">National and Kapodistrian University of Athens · Advisors: Dr. Panayotis Boumis, Prof. Despina Hatzidimitriou · <i>Optical detection of extragalactic supernova remnants</i></div></div></div>
+      <div class="row"><div class="when">2014</div><div>
+        <div class="what">BSc in Applied Mathematical and Physical Sciences</div>
+        <div class="where">National Technical University of Athens · Advisor: Dr. Panayotis Boumis · <i>Supernova remnant detection in the galaxy NGC 1313</i></div></div></div>
+      </div>
+    </details>
+
+    <details class="sec cvblock">
+      <summary><span class="sec-t">Talks &amp; conferences</span><span class="count">28</span></summary>
+      <div class="sec-body">
+      <div class="row"><div class="when">Jul 2026</div><div><div class="what">Discovery of new optical and X-ray supernova remnants in nearby galaxies: improved identification through multi-line diagnostics</div><div class="where">SEA XVII Meeting, Tarragona, Spain · Talk</div></div></div>
+      <div class="row"><div class="when">Jun 2026</div><div><div class="what">New X-ray supernova remnants in NGC 7793</div><div class="where">Galactic Frontiers 2026: Advancing X-ray Astronomy in a Multiwavelength Universe, Bad Honnef, Germany · Poster / flash talk</div></div></div>
+      <div class="row"><div class="when">May 2026</div><div><div class="what">New optical diagnostics and machine-learning classification of emission-line nebulae: toward larger and more complete samples of supernova remnants in nearby galaxies <span class="inv">Invited</span></div><div class="where">Seminar, INAF – Osservatorio Astronomico di Palermo, Italy · Seminar</div></div></div>
+      <div class="row"><div class="when">Apr 2026</div><div><div class="what">New optical diagnostics and machine-learning classification of emission-line nebulae: toward larger and more complete samples of supernova remnants in nearby galaxies <span class="inv">Invited</span></div><div class="where">Colloquium, Instituto de Astrofísica de Andalucía (IAA‑CSIC), Granada, Spain · Colloquium</div></div></div>
+      <div class="row"><div class="when">Sep 2025</div><div><div class="what">Diagnostics for nebula identification using machine learning</div><div class="where">Asymmetrical Post-main-sequence Nebulae 9, Granada, Spain · Poster / flash talk</div></div></div>
+      <div class="row"><div class="when">Aug 2025</div><div><div class="what">Discovery of new optical and X-ray supernova remnants in nearby galaxies</div><div class="where">One Hundred Years of Supernova Science, Stockholm, Sweden · Flash talk</div></div></div>
+      <div class="row"><div class="when">Jun 2025</div><div><div class="what">Discovery of new optical and X-ray supernova remnants in nearby galaxies</div><div class="where">7th IEEC Forum, Barcelona, Spain · Flash talk</div></div></div>
+      <div class="row"><div class="when">Nov 2024</div><div><div class="what">The 1991bg-like Type Ia supernova 2023vjh: first results</div><div class="where">South American Supernovae (SAS) meeting, La Plata, Argentina · Talk</div></div></div>
+      <div class="row"><div class="when">Jul 2024</div><div><div class="what">New larger sample of supernova remnants in NGC 7793, using MUSE IFS</div><div class="where">SEA XVI Meeting, Granada, Spain · Talk</div></div></div>
+      <div class="row"><div class="when">Jun 2024</div><div><div class="what">New larger sample of supernova remnants in NGC 7793, using MUSE IFS</div><div class="where">Supernova Remnants: An Odyssey in Space after Stellar Death III, Chania, Greece · Talk</div></div></div>
+      <div class="row"><div class="when">Oct 2023</div><div><div class="what">New larger sample of supernova remnants in NGC 7793, using MUSE IFS <span class="inv">Invited</span></div><div class="where">Seminar, INAF – IASF Palermo, Italy · Seminar</div></div></div>
+      <div class="row"><div class="when">Oct 2023</div><div><div class="what">New larger sample of supernova remnants in NGC 7793, using MUSE IFS <span class="inv">Invited</span></div><div class="where">Seminar, INAF – Osservatorio Astronomico di Palermo, Italy · Seminar</div></div></div>
+      <div class="row"><div class="when">Oct 2023</div><div><div class="what">Application of multi-line diagnostics for the identification of supernova remnants</div><div class="where">Lorentz Center workshop: Supernova Remnants in Complex Environments, Leiden, Netherlands · Talk</div></div></div>
+      <div class="row"><div class="when">Jun 2023</div><div><div class="what">Study of supernova remnants using IFU data</div><div class="where">16th Hellenic Astronomical Conference, Athens, Greece · Talk</div></div></div>
+      <div class="row"><div class="when">Jun 2023</div><div><div class="what">Study of supernova remnants in NGC 7793 using IFU data</div><div class="where">Seminar, Institute of Astrophysics (IA‑FORTH), Heraklion, Greece · Seminar</div></div></div>
+      <div class="row"><div class="when">Feb 2023</div><div><div class="what">New diagnostics for the optical identification of supernova remnants</div><div class="where">Seminar, Institute of Space Sciences (ICE‑CSIC), Barcelona, Spain · Seminar</div></div></div>
+      <div class="row"><div class="when">Jan 2023</div><div><div class="what">Observational and theoretical luminosity functions for optical supernova remnants</div><div class="where">ICE retreat, Montserrat, Spain · Talk</div></div></div>
+      <div class="row"><div class="when">Aug 2022</div><div><div class="what">A multi-wavelength study of supernova-remnant populations in nearby galaxies</div><div class="where">Supernova Remnants and their Progenitors, Center for Astrophysics, USA (virtual) · Talk</div></div></div>
+      <div class="row"><div class="when">Jun 2022</div><div><div class="what">A systematic study of extragalactic supernova remnants in optical wavelengths</div><div class="where">EAS Annual Meeting, Valencia, Spain (virtual) · Poster</div></div></div>
+      <div class="row"><div class="when">Jul 2021</div><div><div class="what">A multiwavelength study of extragalactic supernova remnants</div><div class="where">15th Hellenic Astronomical Conference, Patras, Greece (virtual) · Talk</div></div></div>
+      <div class="row"><div class="when">Oct 2019</div><div><div class="what">Study of extragalactic supernova remnants</div><div class="where">CTIO Colloquium, AURA, La Serena, Chile · Colloquium</div></div></div>
+      <div class="row"><div class="when">Jul 2019</div><div><div class="what">Study of extragalactic supernova remnants</div><div class="where">14th Hellenic Astronomical Conference, Volos, Greece · Talk</div></div></div>
+      <div class="row"><div class="when">Jun 2019</div><div><div class="what">Study of extragalactic supernova remnants</div><div class="where">Supernova Remnants: An Odyssey in Space after Stellar Death II, Chania, Greece · Talk</div></div></div>
+      <div class="row"><div class="when">Apr 2019</div><div><div class="what">Study of extragalactic supernova remnants</div><div class="where">STScI Spring Symposium: The Deaths and Afterlives of Stars, Baltimore, USA · Poster</div></div></div>
+      <div class="row"><div class="when">Jul 2017</div><div><div class="what">Detection of extragalactic supernova remnants</div><div class="where">13th Hellenic Astronomical Conference, Heraklion, Greece · Talk</div></div></div>
+      <div class="row"><div class="when">Jul 2016</div><div><div class="what">Detection of extragalactic supernova remnants</div><div class="where">EWASS 2016, Athens, Greece · Poster</div></div></div>
+      <div class="row"><div class="when">Jun 2016</div><div><div class="what">New candidate supernova remnants in nearby galaxies</div><div class="where">Supernova Remnants: An Odyssey in Space after Stellar Death I, Chania, Greece · Poster</div></div></div>
+      <div class="row"><div class="when">Jul 2015</div><div><div class="what">Detection of supernova remnants in the galaxy NGC 1313</div><div class="where">12th Hellenic Astronomical Conference, Thessaloniki, Greece · Talk</div></div></div>
+      <p class="more">Also attended: EAS 2023 (Kraków), ePESSTO meeting 2023 (Warsaw), JWST Master Class 2020 (Athens).</p>
+      </div>
+    </details>
+
+    <details class="sec cvblock">
+      <summary><span class="sec-t">Observing experience</span><span class="count">4</span></summary>
+      <div class="sec-body">
+      <div class="row"><div class="when">2023, 2024</div><div><div class="what">ESO NTT 3.58 m, imaging and spectroscopy</div><div class="where">La Silla Observatory, Chile · 15 nights</div></div></div>
+      <div class="row"><div class="when">2017, 2019</div><div><div class="what">Blanco 4 m, multi-slit spectroscopy</div><div class="where">Cerro Tololo Inter-American Observatory, Chile · 8 nights</div></div></div>
+      <div class="row"><div class="when">2017 – 2021</div><div><div class="what">1.3 m telescope, imaging</div><div class="where">Skinakas Observatory, Crete, Greece · 45 nights</div></div></div>
+      <div class="row"><div class="when">2014 – 2016</div><div><div class="what">Aristarchos 2.3 m, imaging</div><div class="where">Helmos Observatory, Kalavryta, Greece · 35 nights</div></div></div>
+      </div>
+    </details>
+
+    <details class="sec cvblock">
+      <summary><span class="sec-t">Successful proposals</span><span class="count">7</span></summary>
+      <div class="sec-body">
+      <div class="row"><div class="when">2026B</div><div><div class="what">Investigating the origin of gamma-ray emission and dense structures in the supernova remnant Calvera <span class="inv">PI</span></div><div class="where">EuroHPC Benchmark Access, Leonardo DCGP · 2000 node hours (3-month allocation)</div></div></div>
+      <div class="row"><div class="when">2025B</div><div><div class="what">Investigation of supernova remnants and ultra-luminous X-ray nebulae in IC 342 <span class="inv">PI</span></div><div class="where">WHT / WEAVE · SW2025b18</div></div></div>
+      <div class="row"><div class="when">2023B</div><div><div class="what">Supernova remnants in the nearby starburst galaxy IC 342 <span class="inv">PI</span></div><div class="where">ING / WEAVE · ING C108</div></div></div>
+      <div class="row"><div class="when">2023</div><div><div class="what">Supernova remnants in the nearby starburst galaxy IC 342 <span class="inv">PI</span></div><div class="where">INT / WFC · INT C108</div></div></div>
+      <div class="row"><div class="when">Cycle 21</div><div><div class="what">The giant hiding in our backyard: the nearby spiral starburst galaxy IC 342 <span class="inv coi">Co-I</span></div><div class="where">Chandra / HST · PI: P. Sell</div></div></div>
+      <div class="row"><div class="when">2019B</div><div><div class="what">Investigation of supernova remnants in nearby galaxies <span class="inv coi">Co-I</span></div><div class="where">NOAO · PI: A. Zezas</div></div></div>
+      <div class="row"><div class="when">2017B</div><div><div class="what">Investigation of supernova remnants in nearby galaxies <span class="inv coi">Co-I</span></div><div class="where">NOAO · PI: A. Zezas</div></div></div>
+      </div>
+    </details>
+
+    <details class="sec cvblock">
+      <summary><span class="sec-t">Supervision</span><span class="count">5</span></summary>
+      <div class="sec-body">
+      <div class="row"><div class="when">2026</div><div><div class="what">María Riera Pintado (BSc, University of Barcelona)</div><div class="where">Shock-excited regions with MUSE IFU spectroscopy · Awarded highest honours</div></div></div>
+      <div class="row"><div class="when">2025</div><div><div class="what">Pol Musté Ferré (BSc, University of Barcelona)</div><div class="where">Optical and X-ray SNRs in NGC 628 and NGC 5068</div></div></div>
+      <div class="row"><div class="when">2025</div><div><div class="what">Sophia Theodosiou (co-supervisor, National Observatory of Athens)</div><div class="where">IFS study of the supernova remnant SNR 0509‑68.7</div></div></div>
+      <div class="row"><div class="when">2023</div><div><div class="what">Antonio Menacho Romañá (Autonomous University of Barcelona)</div><div class="where">Supernova remnants in NGC 300 as a function of metallicity</div></div></div>
+      <div class="row"><div class="when">2023</div><div><div class="what">Issa Hussein Bassia (co-supervisor, University of Crete)</div><div class="where">Meta-analysis of physical parameters of Galactic SNRs</div></div></div>
+      </div>
+    </details>
+
+    <details class="sec cvblock">
+      <summary><span class="sec-t">Service</span><span class="count">7</span></summary>
+      <div class="sec-body">
+      <div class="row"><div class="when">2026</div><div><div class="what">LOC co-chair, NewAthena Rising: SWG4</div><div class="where">Barcelona, Spain</div></div></div>
+      <div class="row"><div class="when">2023</div><div><div class="what">SOC, EAS session "In the new era of cosmological surveys"</div><div class="where">Kraków, Poland</div></div></div>
+      <div class="row"><div class="when">2016 – 2024</div><div><div class="what">LOC, Supernova Remnants: An Odyssey in Space after Stellar Death I–III, and EWASS 2016</div><div class="where">Crete and Athens, Greece</div></div></div>
+      <div class="row"><div class="when">2022 – 2025</div><div><div class="what">Member, then chair (2023–2025), of the Equity Committee</div><div class="where">Institute of Space Sciences (ICE‑CSIC)</div></div></div>
+      <div class="row"><div class="when">2024</div><div><div class="what">Referee</div><div class="where">The Astrophysical Journal</div></div></div>
+      <div class="row"><div class="when">2019 – 2022</div><div><div class="what">Journal Club coordinator</div><div class="where">Institute of Astrophysics, University of Crete</div></div></div>
+      <div class="row"><div class="when">—</div><div><div class="what">Collaborations and memberships</div><div class="where">ePESSTO · Hellenic Astronomical Society · European Astronomical Society</div></div></div>
+      </div>
+    </details>
+
+    <details class="sec cvblock">
+      <summary><span class="sec-t">Outreach</span><span class="count">15</span></summary>
+      <div class="sec-body">
+      <div class="row"><div class="when">May 2025</div><div><div class="what">Outreach activity “What would happen if the Sun suddenly turned off?”</div><div class="where">Igualada, Barcelona</div></div></div>
+      <div class="row"><div class="when">Mar 2025</div><div><div class="what">“Mujeres en Ciencia – Astronomía”</div><div class="where">Parc Taulí Hospital Universitari, Barcelona</div></div></div>
+      <div class="row"><div class="when">Nov 2024</div><div><div class="what">Talk “The impressive death of stars: supernovae and their remnants”</div><div class="where">Birra científica – Science Week, La Pau, Barcelona</div></div></div>
+      <div class="row"><div class="when">Oct 2024</div><div><div class="what">Skit “Looking at the Universe we have learned a lot and enjoyed it”, for students and teachers</div><div class="where">Igualada, Barcelona</div></div></div>
+      <div class="row"><div class="when">Sep 2024</div><div><div class="what">Solar observations for the European Researchers’ Night</div><div class="where">Igualada, Barcelona</div></div></div>
+      <div class="row"><div class="when">Sep 2024</div><div><div class="what">Skit “Looking at the Universe we have learned a lot and enjoyed it”, for students and teachers</div><div class="where">Sabadell, Barcelona</div></div></div>
+      <div class="row"><div class="when">Mar 2024</div><div><div class="what">Activities about the lunar eclipse</div><div class="where">School Gabriel Castellà i Raich, Igualada</div></div></div>
+      <div class="row"><div class="when">Mar 2024</div><div><div class="what">Talk “Supernova remnants: impactful and crucial objects for human life”</div><div class="where">Birra científica – Un viatge per l’univers, Igualada</div></div></div>
+      <div class="row"><div class="when">—</div><div><div class="what">Talk “Supernova remnants: formation, evolution, identification, and their role in a galaxy”</div><div class="where">Astro UAB, Autonomous University of Barcelona</div></div></div>
+      <div class="row"><div class="when">Feb 2023</div><div><div class="what">Talk for the International Day of Women and Girls in Science</div><div class="where">Institute of Space Sciences (ICE‑CSIC), Barcelona</div></div></div>
+      <div class="row"><div class="when">Feb 2023</div><div><div class="what">Talk and discussion with students on women in science, for the International Day of Women and Girls in Science</div><div class="where">School Gabriel Castellà i Raich, Igualada</div></div></div>
+      <div class="row"><div class="when">Nov 2022</div><div><div class="what">Public observations</div><div class="where">Autonomous University of Barcelona</div></div></div>
+      <div class="row"><div class="when">2022 – now</div><div><div class="what">Member of Magnet, a programme promoting equity in education</div><div class="where">Barcelona</div></div></div>
+      <div class="row"><div class="when">Jun – Aug 2019</div><div><div class="what">Open nights for the public</div><div class="where">Skinakas Observatory, Crete</div></div></div>
+      <div class="row"><div class="when">2017 – 2020</div><div><div class="what">Activities for the European Researchers’ Night</div><div class="where">Institute of Astrophysics, Crete</div></div></div>
+      </div>
+    </details>
+
+    <details class="sec cvblock">
+      <summary><span class="sec-t">Teaching &amp; languages</span><span class="count">2</span></summary>
+      <div class="sec-body">
+      <div class="row"><div class="when">2017 – 2018</div><div><div class="what">Teaching assistant, Physics Laboratory IV</div><div class="where">Department of Physics, University of Crete</div></div></div>
+      <div class="row"><div class="when">Languages</div><div><div class="what">Greek (native), English (C2), Spanish (B2), German (B1)</div></div></div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="panel" id="astrophotography" role="tabpanel" aria-labelledby="t-astrophotography" hidden>
+  <h2>Night Sky</h2>
+  <p>Away from the data, I like to photograph the night sky, mostly with my phone.</p>
+  <div class="gallery">
+    <figure><button class="shot" type="button" aria-label="Enlarge: Total solar eclipse"><img loading="lazy" src="img/photo-03.jpg" alt="Sequence of five photos of the 12 August 2026 total solar eclipse" width="1200" height="1200"></button><figcaption><b>Total solar eclipse</b> · The partial phases, the corona at totality and the diamond ring as the Sun came back. <span class="loc">Tudela de Duero, Spain · 12 Aug 2026</span></figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: Dumbbell Nebula (M27)"><img loading="lazy" src="img/photo-04.jpg" alt="A planetary nebula: the glowing gas shed by a dying Sun-like star, taken through a telescope." width="469" height="447"></button><figcaption><b>Dumbbell Nebula (M27)</b> · A planetary nebula: the glowing gas shed by a dying Sun-like star, taken through a telescope. <span class="loc">Skinakas Observatory, Crete · 2020</span></figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: Domes under the Milky Way"><img loading="lazy" src="img/photo-05.jpg" alt="Observatory domes and a bare tree beneath the southern Milky Way." width="825" height="1100"></button><figcaption><b>Domes under the Milky Way</b> · Observatory domes and a bare tree beneath the southern Milky Way. <span class="loc">La Silla Observatory, Chile</span></figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: The southern Milky Way"><img loading="lazy" src="img/photo-06.jpg" alt="Star clouds and dark dust lanes across the band of our Galaxy." width="1100" height="825"></button><figcaption><b>The southern Milky Way</b> · Star clouds and dark dust lanes across the band of our Galaxy. <span class="loc">La Silla Observatory, Chile</span></figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: Telescope and Galactic centre"><img loading="lazy" src="img/photo-07.jpg" alt="The bright core of the Milky Way rising beside a telescope dome." width="1100" height="825"></button><figcaption><b>Telescope and Galactic centre</b> · The bright core of the Milky Way rising beside a telescope dome. <span class="loc">La Silla Observatory, Chile</span></figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: Under the Magellanic Clouds"><img loading="lazy" src="img/photo-08.jpg" alt="Three of us below a radio dish, with both Magellanic Clouds near the horizon." width="825" height="1100"></button><figcaption><b>Under the Magellanic Clouds</b> · Three of us below a radio dish, with both Magellanic Clouds near the horizon. <span class="loc">La Silla Observatory, Chile</span></figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: The Milky Way arch"><img loading="lazy" src="img/photo-09.jpg" alt="The Galaxy arching overhead, crossed by a satellite trail, with both Magellanic Clouds near the horizon." width="825" height="1100"></button><figcaption><b>The Milky Way arch</b> · The Galaxy arching overhead, crossed by a satellite trail, with both Magellanic Clouds near the horizon. <span class="loc">La Silla Observatory, Chile</span></figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: Dust lanes of the Galactic centre"><img loading="lazy" src="img/photo-10.jpg" alt="A close look at the bulge of the Milky Way and its dark dust lanes." width="1100" height="825"></button><figcaption><b>Dust lanes of the Galactic centre</b> · A close look at the bulge of the Milky Way and its dark dust lanes. <span class="loc">La Silla Observatory, Chile</span></figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: A satellite crossing"><img loading="lazy" src="img/photo-11.jpg" alt="The Milky Way above the ridge, with a bright satellite streak." width="825" height="1100"></button><figcaption><b>A satellite crossing</b> · The Milky Way above the ridge, with a bright satellite streak. <span class="loc">La Silla Observatory, Chile</span></figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: Me and the Galactic centre"><img loading="lazy" src="img/photo-12.jpg" alt="Maria standing under the Milky Way core." width="825" height="1100"></button><figcaption><b>Me and the Galactic centre</b> · Standing under the Milky Way core. <span class="loc">La Silla Observatory, Chile</span></figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: Through the dome"><img loading="lazy" src="img/photo-13.jpg" alt="The Galactic centre seen from under a telescope dome." width="1100" height="825"></button><figcaption><b>Through the dome</b> · The Galactic centre seen from under a telescope dome. <span class="loc">La Silla Observatory, Chile</span></figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: Two neighbour galaxies"><img loading="lazy" src="img/photo-14.jpg" alt="The Large and Small Magellanic Clouds above a tree and a telescope dome." width="825" height="1100"></button><figcaption><b>Two neighbour galaxies</b> · The Large and Small Magellanic Clouds above a tree and a telescope dome. <span class="loc">La Silla Observatory, Chile</span></figcaption></figure>
+      <figure><button class="shot" type="button" aria-label="Enlarge: The Galactic core above the dish"><img loading="lazy" src="img/photo-15.jpg" alt="The bright centre of the Milky Way rising over a radio dish." width="825" height="1100"></button><figcaption><b>The Galactic core above the dish</b> · The bright centre of the Milky Way rising over a radio dish.</figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: Radio dish and the Milky Way"><img loading="lazy" src="img/photo-16.jpg" alt="A radio antenna pointed at the dust lanes of the Galactic centre." width="1100" height="825"></button><figcaption><b>Radio dish and the Milky Way</b> · A radio antenna pointed at the dust lanes of the Galactic centre.</figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: Telescopes and satellites"><img loading="lazy" src="img/photo-17.jpg" alt="The Milky Way over the telescope domes, crossed by two satellite trails." width="1100" height="825"></button><figcaption><b>Telescopes and satellites</b> · The Milky Way over the telescope domes, crossed by two satellite trails.</figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: Open domes"><img loading="lazy" src="img/photo-18.jpg" alt="Two open telescope domes beneath the southern Milky Way." width="1013" height="1100"></button><figcaption><b>Open domes</b> · Two open telescope domes beneath the southern Milky Way.</figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: The Magellanic Clouds at the horizon"><img loading="lazy" src="img/photo-19.jpg" alt="Both Magellanic Clouds low in the sky, with the Milky Way above and a satellite streak below." width="1100" height="825"></button><figcaption><b>The Magellanic Clouds at the horizon</b> · Both Magellanic Clouds low in the sky, with the Milky Way above and a satellite streak below.</figcaption></figure>
+      <figure><button class="shot" type="button" aria-label="Enlarge: Milky Way over the cliffs"><img loading="lazy" src="img/photo-20.jpg" alt="The Galactic centre rising above a rocky ridge." width="1100" height="825"></button><figcaption><b>Milky Way over the cliffs</b> · The Galactic centre rising above a rocky ridge. <span class="loc">Kythera, Greece</span></figcaption></figure>
+    <figure><button class="shot" type="button" aria-label="Enlarge: Summer Milky Way by the sea"><img loading="lazy" src="img/photo-21.jpg" alt="The Milky Way core over the cliffs above the sea." width="825" height="1100"></button><figcaption><b>Summer Milky Way by the sea</b> · The Milky Way core over the cliffs above the sea. <span class="loc">Kythera, Greece</span></figcaption></figure>
+  </div>
+</section>
+
+</main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <img id="lb-img" alt="">
+  <div class="lb-bar"><p id="lb-cap"></p>
+    <div class="lb-btns"><button type="button" id="lb-prev" aria-label="Previous photo">‹</button><button type="button" id="lb-next" aria-label="Next photo">›</button><button type="button" id="lb-close" aria-label="Close">✕</button></div></div>
+</div>
+
+<footer><div class="wrap">© 2026 Maria Kopsacheili · Header image: Lagoon Nebula (M8), NASA, ESA and STScI</div></footer>
+</div>
+
+<script>
+(function(){
+  /* Tabs */
+  const views=["about","research","publications","cv","astrophotography"];
+  const tabs=[...document.querySelectorAll(".tab")];
+  function show(v){
+    if(!views.includes(v)) v="about";
+    views.forEach(id=>{document.getElementById(id).hidden=(id!==v)});
+    tabs.forEach(t=>t.setAttribute("aria-selected",String(t.dataset.v===v)));
+  }
+  tabs.forEach(t=>t.addEventListener("click",()=>{
+    if(location.hash.slice(1)===t.dataset.v) show(t.dataset.v); else location.hash=t.dataset.v;
+  }));
+  window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+  show(location.hash.slice(1));
+
+
+  /* Discreet star field on the lower ground */
+  const lower=document.querySelector(".lower"), sc=document.getElementById("stars"), sx=sc.getContext("2d");
+  function rng(seed){return function(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}}
+  function stars(){
+    const dpr=Math.min(window.devicePixelRatio||1,2), w=lower.clientWidth, h=lower.clientHeight;
+    if(!w||!h) return;
+    sc.width=w*dpr; sc.height=h*dpr; sx.setTransform(dpr,0,0,dpr,0,0); sx.clearRect(0,0,w,h);
+    const r=rng(8), n=Math.round(w*h/4200);
+    for(let i=0;i<n;i++){
+      const x=r()*w, y=r()*h, k=r();
+      const tint=k<.12?"243,178,62":(k<.3?"190,205,255":"244,239,230");
+      const big=r()<.035, size=big?1.3+r()*.6:.35+r()*.75, a=big?.55+r()*.3:.12+r()*.38;
+      if(big){
+        const g=sx.createRadialGradient(x,y,0,x,y,size*5);
+        g.addColorStop(0,`rgba(${tint},${a*.35})`); g.addColorStop(1,`rgba(${tint},0)`);
+        sx.fillStyle=g; sx.beginPath(); sx.arc(x,y,size*5,0,7); sx.fill();
+        sx.strokeStyle=`rgba(${tint},${a*.35})`; sx.lineWidth=.6;
+        sx.beginPath(); sx.moveTo(x-size*4,y); sx.lineTo(x+size*4,y); sx.moveTo(x,y-size*4); sx.lineTo(x,y+size*4); sx.stroke();
+      }
+      sx.fillStyle=`rgba(${tint},${a})`; sx.beginPath(); sx.arc(x,y,size,0,7); sx.fill();
+    }
+  }
+  let st; const redraw=()=>{clearTimeout(st); st=setTimeout(stars,60)};
+  if("ResizeObserver" in window) new ResizeObserver(redraw).observe(lower); else window.addEventListener("resize",redraw);
+  stars();
+
+  /* Lightbox */
+  const shots=[...document.querySelectorAll(".shot")], lb=document.getElementById("lightbox"),
+        li=document.getElementById("lb-img"), lc=document.getElementById("lb-cap");
+  let cur=0, opener=null;
+  function openAt(i){cur=(i+shots.length)%shots.length; const im=shots[cur].querySelector("img");
+    li.src=im.src; li.alt=im.alt; lc.innerHTML=shots[cur].nextElementSibling.innerHTML; lb.hidden=false;
+    document.body.style.overflow="hidden"; document.getElementById("lb-close").focus();}
+  function closeLb(){lb.hidden=true; document.body.style.overflow=""; if(opener) opener.focus();}
+  shots.forEach((b,i)=>b.addEventListener("click",()=>{opener=b; openAt(i)}));
+  document.getElementById("lb-prev").onclick=()=>openAt(cur-1);
+  document.getElementById("lb-next").onclick=()=>openAt(cur+1);
+  document.getElementById("lb-close").onclick=closeLb;
+  lb.addEventListener("click",e=>{if(e.target===lb) closeLb()});
+  document.addEventListener("keydown",e=>{if(lb.hidden) return;
+    if(e.key==="Escape") closeLb(); else if(e.key==="ArrowLeft") openAt(cur-1); else if(e.key==="ArrowRight") openAt(cur+1);});
+
+  /* Open all / close all */
+  document.querySelectorAll(".toggle-all").forEach(btn=>{
+    const panel=btn.closest(".panel"), secs=[...panel.querySelectorAll("details.sec")];
+    const sync=()=>{const all=secs.every(d=>d.open); btn.textContent=all?"Close all":"Open all"; btn.setAttribute("aria-pressed",String(all));};
+    btn.addEventListener("click",()=>{const open=!secs.every(d=>d.open); secs.forEach(d=>d.open=open); sync();});
+    secs.forEach(d=>d.addEventListener("toggle",sync));
+  });
+})();
+</script>
+
+</body>
+</html>
