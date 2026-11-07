@@ -607,5 +607,15 @@ footer{border-top:1px solid var(--line);padding-block:24px;color:var(--muted);fo
 })();
 </script>
 
+<script data-goatcounter="https://mariakop.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<script>
+/* Count each tab as its own page in GoatCounter */
+window.addEventListener("hashchange",function(){
+  var v=location.hash.slice(1)||"about";
+  if(window.goatcounter&&window.goatcounter.count){
+    window.goatcounter.count({path:"/#"+v,title:v.charAt(0).toUpperCase()+v.slice(1)});
+  }
+});
+</script>
 </body>
 </html>
