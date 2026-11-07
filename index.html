@@ -612,8 +612,10 @@ footer{border-top:1px solid var(--line);padding-block:24px;color:var(--muted);fo
 /* Count each tab as its own page in GoatCounter */
 window.addEventListener("hashchange",function(){
   var v=location.hash.slice(1)||"about";
+  var names={about:"About",research:"Research",publications:"Publications",cv:"CV",astrophotography:"Night Sky"};
+  if(!names[v]) return;
   if(window.goatcounter&&window.goatcounter.count){
-    window.goatcounter.count({path:"/#"+v,title:v.charAt(0).toUpperCase()+v.slice(1)});
+    window.goatcounter.count({path:"/"+(v==="astrophotography"?"night-sky":v),title:names[v]});
   }
 });
 </script>
