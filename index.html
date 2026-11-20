@@ -612,15 +612,25 @@ footer{border-top:1px solid var(--line);padding-block:24px;color:var(--muted);fo
 
 <script data-goatcounter="https://mariakop.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <script>
-/* Count each tab as its own page in GoatCounter */
-window.addEventListener("hashchange",function(){
-  var v=location.hash.slice(1)||"about";
+/* Tab views go to a separate GoatCounter site (mariakoptabs), so the main
+   counter (mariakop) counts only real visits. Respects the
+   #toggle-goatcounter opt-out stored by count.js. */
+(function(){
   var names={about:"About",research:"Research",publications:"Publications",cv:"CV",astrophotography:"Night Sky"};
-  if(!names[v]) return;
-  if(window.goatcounter&&window.goatcounter.count){
-    window.goatcounter.count({path:"/"+(v==="astrophotography"?"night-sky":v),title:names[v]});
+  function skip(){ try{ return localStorage.getItem("skipgc")==="t"; }catch(e){ return false; } }
+  function send(){
+    var v=location.hash.slice(1)||"about";
+    if(!names[v]||skip()) return;
+    var path="/"+(v==="astrophotography"?"night-sky":v);
+    var url="https://mariakoptabs.goatcounter.com/count?p="+encodeURIComponent(path)+
+      "&t="+encodeURIComponent(names[v])+
+      "&s="+encodeURIComponent(screen.width+","+screen.height+","+(window.devicePixelRatio||1))+
+      "&rnd="+Math.random().toString(36).slice(2);
+    var img=new Image(); img.src=url;
   }
-});
+  window.addEventListener("hashchange",send);
+  if(document.readyState==="complete") send(); else window.addEventListener("load",send);
+})();
 </script>
 </body>
 </html>
