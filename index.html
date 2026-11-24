@@ -618,24 +618,21 @@ footer{border-top:1px solid var(--line);padding-block:24px;color:var(--muted);fo
 (function(){
   var names={about:"About",research:"Research",publications:"Publications",cv:"CV",astrophotography:"Night Sky"};
   function skip(){ try{ return localStorage.getItem("skipgc")==="t"; }catch(e){ return false; } }
-  function blocked(){
-    /* Only count a tab when the main counter also counts the visit:
-       count.js must have loaded and its own filter (bots, automated
-       browsers, frames, prerender, opt-out) must not reject it. */
-    var gc=window.goatcounter;
-    if(!gc||!gc.count) return true;
-    try{ if(gc.filter&&gc.filter()) return true; }catch(e){}
-    return false;
-  }
   function send(){
     var v=location.hash.slice(1)||"about";
-    if(!names[v]||skip()||blocked()) return;
+    if(!names[v]||skip()) return;
+    var gc=window.goatcounter;
+    /* count.js not loaded (blocked) -> not counted in the main counter either */
+    if(!gc||!gc.url) return;
     var path="/"+(v==="astrophotography"?"night-sky":v);
-    var url="https://mariakoptabs.goatcounter.com/count?p="+encodeURIComponent(path)+
-      "&t="+encodeURIComponent(names[v])+
-      "&s="+encodeURIComponent(screen.width+","+screen.height+","+(window.devicePixelRatio||1))+
-      "&rnd="+Math.random().toString(36).slice(2);
-    var img=new Image(); img.src=url;
+    /* Build the hit with count.js itself, so it carries the same bot
+       signal and filters as the main counter; url() returns nothing
+       when count.js would not count the visit. */
+    var u=gc.url({path:path,title:names[v]});
+    if(!u) return;
+    u=u.replace("//mariakop.goatcounter.com/","//mariakoptabs.goatcounter.com/");
+    if(u.indexOf("//mariakoptabs.goatcounter.com/")<0) return;
+    var img=new Image(); img.src=u;
   }
   window.addEventListener("hashchange",send);
   if(document.readyState==="complete") send(); else window.addEventListener("load",send);
